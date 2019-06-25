@@ -1,6 +1,8 @@
+import ch02.stacks.*;
+import support.*;
 
+public class Bid<T> extends LinkedStack<T>
 
-public class Bid 
 {
    protected String bidderName;
    protected int maxBid, currentBid;
@@ -32,5 +34,13 @@ public class Bid
       this.maxBid = maxBid;
    }
    
+   public void setCurrentBid(int currentBid) {
+      this.currentBid = currentBid;
+   }
    
+   public String toString(){
+      
+      return this.bidderName + " " + this.currentBid + " " + this.maxBid;
+   }
+
 }
