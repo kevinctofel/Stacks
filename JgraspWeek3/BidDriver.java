@@ -8,12 +8,13 @@ public class BidDriver
    public static void main(String args[])
    {
    
-      LinkedStack<Bid> auction = new LinkedStack<> ();
+      LinkedStack<Bid> auction = new LinkedStack<> ();   // Create stack of Bid objects
    
-      String newBidderName;
-      int newMaxBid;
+      String newBidderName, more="Y";     // Sentinel value for looping
+      int newMaxBid;       // Declare new max bid
       int current = 1;     // Set first bid default
       
+      // Scanner object needed for input
       Scanner keyboard = new Scanner(System.in);
       
       System.out.println("Enter a bidder's name: ");
@@ -21,17 +22,25 @@ public class BidDriver
       System.out.println("Enter the bidder's maximum bid: ");
       newMaxBid = keyboard.nextInt();
       
+      // Create the first bid object
       Bid first = new Bid(newBidderName, newMaxBid, 1);
-      
+      // And push it on the stack
       auction.push(first);
       
-      // Loop through additional bidders with input
+      System.out.println("More bidders? Y or N: ");
+      more = keyboard.next();
+      
+      while (more.equals("Y"))   
+      {         
+      
+      // Loop through additional bidders
       
       System.out.println("Enter a bidder's name: ");
       newBidderName = keyboard.next();
       System.out.println("Enter the bidder's maximum bid: ");
       newMaxBid = keyboard.nextInt();
       
+      // Create next Bid object
       Bid nextBid = new Bid(newBidderName, newMaxBid, current);
       
       // Increment bidders current bid unless higher than their max bid
@@ -48,88 +57,18 @@ public class BidDriver
          auction.top().setCurrentBid(oldMax + 1);
       }
       
-      System.out.println("High bidder: " + auction.top().getName());
-      System.out.println("Max bid: " + auction.top().getMaxBid());
+      System.out.println("More bidders? Y or N: ");
+      more = keyboard.next();
+      } // End While loop, no more bidders
       
-      // Next loop
+      System.out.println("Here is the bid history: ");
       
-      System.out.println("Enter a bidder's name: ");
-      newBidderName = keyboard.next();
-      System.out.println("Enter the bidder's maximum bid: ");
-      newMaxBid = keyboard.nextInt();
+      // Pop items off the stack to print out from high bid to low bid
       
-      Bid third = new Bid(newBidderName, newMaxBid, current);
-      
-      // Increment bidders current bid unless higher than their max bid
-      
-      if ((auction.top().getMaxBid()) > third.getMaxBid()) {
-         auction.top().setMaxBid(third.getMaxBid() + 1);
-         }
-      
-       // Replace top bidder if their max is higher that current top bidder max
-      
-      if (third.getMaxBid() > (auction.top().getMaxBid()) ) {
-         int oldMax = auction.top().getMaxBid();
-         auction.push(third);
-         auction.top().setCurrentBid(oldMax + 1);
+      while(!auction.isEmpty()){
+         System.out.println(auction.top().getName() + " " + auction.top().getCurrentBid());
+         auction.pop();
       }
-      
-      System.out.println("High bidder: " + auction.top().getName());
-      System.out.println("Max bid: " + auction.top().getMaxBid());
-
-      // Next loop
-      
-      System.out.println("Enter a bidder's name: ");
-      newBidderName = keyboard.next();
-      System.out.println("Enter the bidder's maximum bid: ");
-      newMaxBid = keyboard.nextInt();
-      
-      Bid fourth = new Bid(newBidderName, newMaxBid, current);
-      
-      // Increment bidders current bid unless higher than their max bid
-      
-      if ((auction.top().getMaxBid()) > fourth.getMaxBid()) {
-         auction.top().setMaxBid(fourth.getMaxBid() + 1);
-         }
-      
-       // Replace top bidder if their max is higher that current top bidder max
-      
-      if (fourth.getMaxBid() > (auction.top().getMaxBid()) ) {
-         int oldMax = auction.top().getMaxBid();
-         auction.push(fourth);
-         auction.top().setCurrentBid(oldMax + 1);
-      }
-      
-      System.out.println("High bidder: " + auction.top().getName());
-      System.out.println("Max bid: " + auction.top().getMaxBid());
-      
-      // Next loop
-      
-      System.out.println("Enter a bidder's name: ");
-      newBidderName = keyboard.next();
-      System.out.println("Enter the bidder's maximum bid: ");
-      newMaxBid = keyboard.nextInt();
-      
-      Bid fifth = new Bid(newBidderName, newMaxBid, current);
-      
-      // Increment bidders current bid unless higher than their max bid
-      
-      if ((auction.top().getMaxBid()) > fifth.getMaxBid()) {
-         auction.top().setMaxBid(fifth.getMaxBid() + 1);
-         }
-      
-       // Replace top bidder if their max is higher that current top bidder max
-      
-      if (fifth.getMaxBid() > (auction.top().getMaxBid()) ) {
-         int oldMax = auction.top().getMaxBid();
-         auction.push(fifth);
-         auction.top().setCurrentBid(oldMax + 1);
-      }
-      
-      System.out.println("High bidder: " + auction.top().getName());
-      System.out.println("Max bid: " + auction.top().getMaxBid());
-
-
       
    }
 
